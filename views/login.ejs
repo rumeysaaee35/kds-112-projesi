@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>112 ACİL KDS | Giriş</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #f4f7f6; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 400px; text-align: center; border-top: 8px solid #cc0000; }
+        .logo-circle { width: 80px; height: 80px; background: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; border: 2px solid #cc0000; }
+        h1 { color: #cc0000; margin: 0; font-size: 24px; }
+        .btn-login { width: 100%; padding: 14px; background: #cc0000; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo-circle"><i class="fas fa-hand-holding-medical" style="font-size: 40px; color: #cc0000;"></i></div>
+        <h1>112 ACİL KDS</h1>
+        <p style="color:#666; margin-bottom:30px;">Yönetici Giriş Paneli</p>
+        
+        <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="E-posta Adresi" required 
+                   style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px;">
+            <input type="password" name="password" placeholder="Şifre" required 
+                   style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px;">
+            <button type="submit" class="btn-login">Sisteme Giriş Yap</button>
+        </form>
+    </div>
+    
+</body>
+</html>
