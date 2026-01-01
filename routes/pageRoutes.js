@@ -1,5 +1,4 @@
 import express from 'express';
-// Süslü parantez kullanarak fonksiyonları controller'dan çekiyoruz
 import { 
     getDashboardPage, 
     getGeoAnalysisPage, 
