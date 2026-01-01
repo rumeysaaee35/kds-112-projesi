@@ -1,7 +1,3 @@
-/* public/js/kds-logic.js
-   Browser script — export yok, req/res/db yok.
-*/
-
 let currentStatusChart = null;
 let simResultChart = null;
 let hastaneDolulukChart = null;
@@ -17,9 +13,6 @@ function el(id) {
   return document.getElementById(id);
 }
 
-/* -----------------------
-   1) API: /api/graphs -> 4 ana grafik
------------------------ */
 async function loadAndDrawApiGraphs() {
   try {
     const resp = await fetch("/api/graphs");
@@ -35,7 +28,6 @@ async function loadAndDrawApiGraphs() {
       plugins: { legend: { display: false } }
     };
 
-    // Pandemi (bar)
     if (el("pandemiChart") && Array.isArray(r.pandemi)) {
       destroyChartById("pandemiChart");
       new Chart(el("pandemiChart"), {
@@ -47,8 +39,6 @@ async function loadAndDrawApiGraphs() {
         options: optCommon
       });
     }
-
-    // Hava (line)
     if (el("weatherChart") && Array.isArray(r.hava)) {
       destroyChartById("weatherChart");
       new Chart(el("weatherChart"), {
@@ -60,8 +50,6 @@ async function loadAndDrawApiGraphs() {
         options: optCommon
       });
     }
-
-    // Vaka tipi (doughnut)
     if (el("typeChart") && Array.isArray(r.vakaTipi)) {
       destroyChartById("typeChart");
       new Chart(el("typeChart"), {
@@ -74,7 +62,6 @@ async function loadAndDrawApiGraphs() {
       });
     }
 
-    // Hastane türü erişim (bar daha okunur)
     if (el("hospitalChart") && Array.isArray(r.hastane)) {
       destroyChartById("hospitalChart");
       new Chart(el("hospitalChart"), {
@@ -93,9 +80,6 @@ async function loadAndDrawApiGraphs() {
   }
 }
 
-/* -----------------------
-   2) API: /api/hastane-doluluk -> hastaneDolulukChart
------------------------ */
 async function loadAndDrawHospitalCapacity() {
   try {
     const canvas = el("hastaneDolulukChart");
@@ -131,9 +115,6 @@ async function loadAndDrawHospitalCapacity() {
   }
 }
 
-/* -----------------------
-   3) Dashboard demo grafikleri (Cost + Bubble)
------------------------ */
 function initCostAnalysis() {
   const canvas = el("costEfficiencyChart");
   const insight = el("costInsight");
@@ -182,9 +163,6 @@ function initTeamBubble() {
   });
 }
 
-/* -----------------------
-   4) Veri Merkezi 4'lü grafik (Data page)
------------------------ */
 function initDataCenterExtraCharts() {
   const opt = {
     responsive: true,
@@ -235,9 +213,6 @@ function initDataCenterExtraCharts() {
   }
 }
 
-/* -----------------------
-   5) Top3 yıllık analiz (Data page)
------------------------ */
 const yearlyData = {
   "2020": [{ i: "Konak", v: 28 }, { i: "Bornova", v: 22 }, { i: "Buca", v: 20 }, { i: "Balçova", v: 15 }],
   "2021": [{ i: "Konak", v: 32 }, { i: "Karşıyaka", v: 25 }, { i: "Buca", v: 24 }, { i: "Çiğli", v: 18 }],
@@ -266,9 +241,6 @@ function updateYearlyAnalysis() {
   insight.innerHTML = `<b>${year}</b> yılı verilerine göre en riskli ilçe: <b>${data[0]?.i ?? "-"}</b>.`;
 }
 
-/* -----------------------
-   6) Smart analysis (dashboard)
------------------------ */
 function runSmartAnalysis() {
   const districtEl = el("analysisDistrict");
   const resultArea = el("smartAnalysisResult");
@@ -294,14 +266,10 @@ function runSmartAnalysis() {
   });
 }
 
-/* -----------------------
-   7) Admin simülasyon butonu (geo updateAnalysis ile)
------------------------ */
 async function handleUpdate() {
   const threshold = Number(el("thresholdInput")?.value || 10);
   const improvement = Number(el("improvementRange")?.value || 22);
 
-  // geo-logic.js içindeki updateAnalysis çalışırsa haritayı günceller
   if (typeof updateAnalysis === "function") {
     await updateAnalysis(threshold);
   }
@@ -337,9 +305,6 @@ async function handleUpdate() {
   }
 }
 
-/* -----------------------
-   8) KDS sağlık endeksi (sidebar)
------------------------ */
 function updateKDSHealthIndex() {
   const sideCritical = el("sideCritical");
   const scoreEl = el("kdsIndexScore");
@@ -362,35 +327,23 @@ function updateKDSHealthIndex() {
     riskEl.innerText = "YÜKSEK";
   }
 }
-
-/* -----------------------
-   9) Başlat
------------------------ */
 window.addEventListener("load", () => {
-  // API grafikleri
   loadAndDrawApiGraphs();
   loadAndDrawHospitalCapacity();
 
-  // statik/demo grafikler
   initCostAnalysis();
   initTeamBubble();
   initDataCenterExtraCharts();
-
-  // yıllık analiz
   updateYearlyAnalysis();
 
-  // sağlık endeksi
   updateKDSHealthIndex();
 
-  // select change event (yıl)
   const yearSelect = el("yearSelect");
   if (yearSelect) yearSelect.addEventListener("change", updateYearlyAnalysis);
 
-  // smart analysis button/select değişince çalışsın
   const district = el("analysisDistrict");
   if (district) district.addEventListener("change", runSmartAnalysis);
 });
 
-/* Global fonksiyonları HTML onclick'ler için window'a aç */
 window.runSmartAnalysis = runSmartAnalysis;
 window.handleUpdate = handleUpdate;
