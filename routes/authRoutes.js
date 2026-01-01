@@ -3,7 +3,6 @@ import * as geoController from '../controllers/geoController.js';
 
 const router = express.Router();
 
-// --- GİRİŞ ROTALARI ---
 router.get('/', (req, res) => res.render('login'));
 
 router.post('/login', (req, res) => {
@@ -15,7 +14,6 @@ router.post('/login', (req, res) => {
     }
 });
 
-// --- COĞRAFİ VE VAKA API ROTALARI ---
 router.get('/api/map-data', geoController.getMapData); 
 router.get('/vaka-analiz/:id', geoController.getVakaAnaliz);
 
