@@ -1,25 +1,13 @@
-/* public/js/app-main.js */
 
-// Eğer backend başka porttaysa buraya yaz:
-// const API_BASE = "http://localhost:8082";
-const API_BASE = ""; // aynı origin ise boş kalsın
-
+const API_BASE = ""; 
 let map;
-
-/* -----------------------
-   URL builder (hatalı URL üretmesin)
------------------------ */
 function api(path) {
-  // path "/api/records" gibi gelmeli
   return `${API_BASE}${path}`;
 }
 
-/* -----------------------
-   1) SAYFA GEÇİŞİ
------------------------ */
 function switchPage(p, el) {
   const sections = document.querySelectorAll(".page-section");
-  const links = document.querySelectorAll(".nav-link"); // <-- HATA BURADAYDI
+  const links = document.querySelectorAll(".nav-link"); 
 
   sections.forEach(s => s.classList.remove("active"));
   links.forEach(l => l.classList.remove("active"));
@@ -34,10 +22,6 @@ function switchPage(p, el) {
     }
   }
 }
-
-/* -----------------------
-   2) UYGULAMA BAŞLAT
------------------------ */
 async function initApp() {
   console.log("Sistem modülleri yükleniyor...");
 
@@ -48,15 +32,11 @@ async function initApp() {
     L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png").addTo(map);
   }
 
-  // Modüller (biri patlasa bile diğerleri çalışsın)
   try { await loadDashboardData(); } catch (e) { console.log("Dashboard verisi henüz hazır değil.", e); }
   try { await loadTableData(); } catch (e) { console.log("Tablo verisi henüz hazır değil.", e); }
   try { await loadKdsExtraData(); } catch (e) { console.log("Ekstra KDS verisi henüz hazır değil.", e); }
 }
 
-/* -----------------------
-   3) TABLO
------------------------ */
 async function loadTableData() {
   const tableBody = document.getElementById("tableBody");
   if (!tableBody) return;
@@ -91,9 +71,6 @@ async function loadTableData() {
   `).join("");
 }
 
-/* -----------------------
-   4) EKİP PERFORMANS
------------------------ */
 async function loadKdsExtraData() {
   const ekipList = document.getElementById("ekipListesi");
   if (!ekipList) return;
@@ -118,9 +95,6 @@ async function loadKdsExtraData() {
   }).join("");
 }
 
-/* -----------------------
-   5) GRAFİKLER
------------------------ */
 async function loadDashboardData() {
   if (!window.Chart) {
     console.error("Chart.js yüklenmemiş (Chart undefined).");
@@ -147,10 +121,6 @@ async function loadDashboardData() {
     });
   }
 }
-
-/* -----------------------
-   6) PANEL KAPAT
------------------------ */
 function closeAnalizPanel() {
   const panel = document.getElementById("analizPanel");
   if (panel) panel.classList.remove("active");
