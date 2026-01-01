@@ -15,7 +15,6 @@ router.get("/hastane-doluluk", getHastaneDoluluk);
 router.get("/graphs", getGraphStats);
 router.get("/simulation", getSimulationData);
 
-// yeni eklediklerimiz
 router.get("/records", getRecords);
 
 
