@@ -1,21 +1,11 @@
-console.log("✅ coğrafi analiz js dosyası yüklendi");
 
-
-/* public/js/geo-logic.js */
-
-// Global Değişkenler (Eğer app-main.js'de tanımlıysa burada tekrar 'let' kullanmıyoruz)
 var heatLayer, suggestionMarker;
 var markers = [];
-
-// 1. ANA HARİTA ANALİZ FONKSİYONU
 async function updateAnalysis(threshold = 10) {
-    // Harita nesnesi (map) başlatılmamışsa işlem yapma
     if (!map) {
         console.warn("Harita henüz başlatılmadı.");
         return;
     }
-
-    // Mevcut katmanları temizle
     markers.forEach(m => map.removeLayer(m));
     if (heatLayer) map.removeLayer(heatLayer);
     if (suggestionMarker) map.removeLayer(suggestionMarker);
@@ -61,12 +51,10 @@ async function updateAnalysis(threshold = 10) {
             }
         });
 
-        // Heatmap katmanını oluştur (Kütüphane yüklüyse)
         if (heatPoints.length > 0 && typeof L.heatLayer === "function") {
             heatLayer = L.heatLayer(heatPoints, {radius: 25, blur: 15, max: 0.8}).addTo(map);
         }
 
-        // KDS Ağırlık Merkezi (AI Önerisi)
         const aiBox = document.getElementById('aiSuggestionBox');
         if (riskPoints.length > 0) {
             const aLat = riskPoints.reduce((s, p) => s + p.lat, 0) / riskPoints.length;
@@ -82,7 +70,6 @@ async function updateAnalysis(threshold = 10) {
             }
         }
 
-        // UI Sayacı Güncelle
         const sideCrit = document.getElementById('sideCritical');
         if (sideCrit) sideCrit.innerText = criticalCount;
 
@@ -91,7 +78,6 @@ async function updateAnalysis(threshold = 10) {
     }
 }
 
-// 2. COĞRAFİ EK GRAFİKLER
 function initGeoExtraCharts() {
     const commonOpt = {
         responsive: true,
@@ -124,7 +110,6 @@ function initGeoExtraCharts() {
     }
 }
 
-// 3. KAYNAK RADAR GRAFİĞİ
 function loadResourceRadar() {
     const ctx = document.getElementById('resourceRadarChart');
     if (!ctx) return;
