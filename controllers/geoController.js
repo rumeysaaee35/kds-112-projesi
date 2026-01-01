@@ -1,6 +1,5 @@
 import db from '../config/db.js';
 
-// Harita Üzerindeki Isı ve Marker Verisi
 export const getMapData = (req, res) => {
     const query = `
         SELECT m.Mahalle_Adi, m.Ilce_Adi, m.Enlem, m.Boylam,
@@ -16,8 +15,6 @@ export const getMapData = (req, res) => {
         res.json(results);
     });
 };
-
-// Tekil Vaka KDS Analizi (Radar Grafik İçin)
 export const getVakaAnaliz = (req, res) => {
     const vakaId = req.params.id;
     const query = `
