@@ -4,7 +4,7 @@ import mysql from 'mysql2';
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root', // MAMP kullanıyorsan 'root', XAMPP ise boş '' olabilir
+    password: 'root', 
     database: 'kds_projesi',
     port: 8889
 });
