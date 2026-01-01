@@ -1,21 +1,14 @@
 import db from '../config/db.js';
-
-// 1. Dashboard Sayfası
 export const getDashboardPage = (req, res) => {
     res.render('dashboard'); 
 };
-
-// 2. Coğrafi Analiz Sayfası
 export const getGeoAnalysisPage = (req, res) => {
     res.render('geo-analysis');
 };
-
-// 3. Sistem Ayarları Sayfası
 export const getSettingsPage = (req, res) => {
     res.render('settings');
 };
 
-// 4. Veri Kayıtları Sayfası (SQL Sorgulu)
 export const getDataRecordsPage = (req, res) => {
     const query = `
         SELECT k.Kayit_No, m.Mahalle_Adi, k.Kaza_Tipi, k.Ulasim_Suresi_DK, k.Kaza_Tarihi_Saati 
@@ -28,8 +21,6 @@ export const getDataRecordsPage = (req, res) => {
             console.error("Veritabanı hatası:", err);
             return res.status(500).send("Veritabanı verisi çekilirken bir hata oluştu.");
         }
-        
-        // EJS'ye gönderilen veriler
         res.render('data-records', { 
             data: results,
             totalRecords: results.length,
