@@ -1,6 +1,5 @@
 import db from '../config/db.js';
 
-// KDS Simülasyonu (Ağırlık Merkezi Hesaplama)
 export const getSimulationData = (req, res) => {
     const query = `SELECT Enlem, Boylam, Ulasim_Suresi_DK FROM Kaza_Kayitlari WHERE Ulasim_Suresi_DK > 10`;
     db.query(query, (err, results) => {
@@ -16,8 +15,6 @@ export const getSimulationData = (req, res) => {
         });
     });
 };
-
-// Grafik Verileri
 export const getGraphStats = (req, res) => {
     const queries = {
         pandemi: "SELECT CASE WHEN YEAR(Kaza_Tarihi_Saati) < 2023 THEN 'Pandemi' ELSE 'Normal' END as etiket, AVG(Ulasim_Suresi_DK) as deger FROM Kaza_Kayitlari GROUP BY etiket",
@@ -36,15 +33,12 @@ export const getGraphStats = (req, res) => {
     }).catch(err => res.status(500).json({ error: "Veri çekilemedi" }));
 };
 
-// Ekip Performansı (Yorgunluk Takibi)
 export const getEkipPerformans = (req, res) => {
     db.query("SELECT * FROM Ekip_Performans ORDER BY Yorgunluk_Endeksi DESC", (err, result) => {
         if (err) return res.status(500).json({ error: "Veritabanı hatası" });
         res.json(result);
     });
 };
-
-// Hastane Doluluk Oranları
 export const getHastaneDoluluk = (req, res) => {
     db.query("SELECT Hastane_Adi, Acil_Yogunluk_Yuzde FROM Hastane_Kapasite", (err, result) => {
         if (err) return res.status(500).json(err);
@@ -77,7 +71,6 @@ export const getMapData = (req, res) => {
       Enlem,
       Boylam,
       Mahalle_ID,
-      -- örnek gecikme yüzdesi: 10dk üstünü 0-100'e ölçekle (max 60dk varsayımıyla)
       LEAST(100, GREATEST(0, ((Ulasim_Suresi_DK - 10) / 50) * 100)) AS Gecikme_Yuzdesi
     FROM Kaza_Kayitlari
     WHERE Enlem IS NOT NULL AND Boylam IS NOT NULL
