@@ -120,6 +120,8 @@ project-root/
 ---
 
 
+## ER Diyagramı
+![ER Diyagramı](./public/er_diagram2.jpg)
 
 ###  Kurulum
 1. Projeyi bilgisayarınıza indirin.
