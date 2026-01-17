@@ -119,6 +119,14 @@ project-root/
 
 ---
 
+
+
+###  Kurulum
+1. Projeyi bilgisayarınıza indirin.
+2. Terminalde `npm install` komutu ile gerekli paketleri yükleyin.
+3. `config/db.js` dosyasındaki veritabanı bilgilerini kendi yerel ayarlarınıza göre güncelleyin.
+4. `node server.js` komutu ile uygulamayı başlatın.
+
 ##  Ortam Değişkenleri (.env)
 Proje, ortam değişkenleri ile yapılandırılmıştır.
 
@@ -133,8 +141,3 @@ DB_NAME=kds_112
 DB_PORT=8889
 
 
-##  Kurulum
-1. Projeyi bilgisayarınıza indirin.
-2. Terminalde `npm install` komutu ile gerekli paketleri yükleyin.
-3. `config/db.js` dosyasındaki veritabanı bilgilerini kendi yerel ayarlarınıza göre güncelleyin.
-4. `node server.js` komutu ile uygulamayı başlatın.
